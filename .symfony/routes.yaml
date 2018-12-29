@@ -1,0 +1,2 @@
+"https://{default}/": { type: upstream, upstream: "movie-external-reference-service:http" }
+"http://{default}/": { type: redirect, to: "https://{default}/" }
