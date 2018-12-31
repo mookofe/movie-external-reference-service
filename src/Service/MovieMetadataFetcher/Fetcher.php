@@ -9,7 +9,6 @@ use App\Integration\OMDB\DTO\Movie;
 use App\Integration\OMDB\DTO\Rating;
 use JMS\Serializer\SerializerInterface;
 use Psr\Http\Message\ResponseInterface;
-use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -45,7 +44,7 @@ class Fetcher
     private $apiKey;
 
     /**
-     * @var Serializer
+     * @var SerializerInterface
      */
     private $serializer;
 
