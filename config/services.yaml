@@ -4,6 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    http_exception_listener.class: 'App\Listener\HttpExceptionListener'
 
 services:
     # default configuration for services in *this* file
@@ -33,3 +34,8 @@ services:
             $serializer: '@jms_serializer'
             $apiUrl:     '%env(OMDB_BASE_URL)%'
             $apiKey:     '%env(OMDB_API_KEY)%'
+
+    App\Listener\HttpExceptionListener:
+        class: '%http_exception_listener.class%'
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 200 }

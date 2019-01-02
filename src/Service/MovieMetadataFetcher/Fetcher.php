@@ -10,6 +10,8 @@ use App\Integration\OMDB\DTO\Rating;
 use JMS\Serializer\SerializerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
+use App\Exception\CommunicationErrorException;
+use App\Exception\MovieMetadataNotFoundException;
 
 /**
  * Class MovieMetadataFetcher
@@ -18,6 +20,13 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class Fetcher
 {
+    /**
+     * Response from metadata provider when movie was not found
+     *
+     * @var string
+     */
+    private const MOVIE_NOT_FOUND_TITLE = 'Movie not found!';
+
     /**
      * @var string
      */
@@ -104,13 +113,17 @@ class Fetcher
         $response = $this->restClient->get($url);
 
         if ($response->getStatusCode() !== Response::HTTP_OK){
-            throw new \Exception('Communication error with Open Movie Database');
+            throw new CommunicationErrorException('Communication error with Open Movie Database');
         }
 
         $movie = $this->deserializeResponse($response);
 
+        if ($movie->getError() === self::MOVIE_NOT_FOUND_TITLE){
+            throw new MovieMetadataNotFoundException();
+        }
+
         if ($movie->getResponse() !== 'True'){
-            throw new \Exception('Invalid response from OMDB: ' . $movie->getError());
+            throw new CommunicationErrorException($movie->getError());
         }
 
         return $movie;
