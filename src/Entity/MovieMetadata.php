@@ -3,6 +3,8 @@ declare(strict_types = 1);
 
 namespace App\Entity;
 
+use JMS\Serializer\Annotation as Serializer;
+
 /**
  * Class MovieMetadata
  *
@@ -17,6 +19,8 @@ final class MovieMetadata
 
     /**
      * @var \DateTimeInterface
+     * @Serializer\SerializedName("dateReleased")
+     * @Serializer\Type("DateTime")
      */
     private $dateReleased;
 
@@ -42,21 +46,25 @@ final class MovieMetadata
 
     /**
      * @var string
+     * @Serializer\SerializedName("posterUrl")
      */
     private $posterUrl;
 
     /**
      * @var float
+     * @Serializer\SerializedName("imdbRating")
      */
     private $imdbRating;
 
     /**
      * @var float
+     * @Serializer\SerializedName("rottenTomatoesRating")
      */
     private $rottenTomatoesRating;
 
     /**
      * @var float
+     * @Serializer\SerializedName("boxOffice")
      */
     private $boxOffice;
 
