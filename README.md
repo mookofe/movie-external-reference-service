@@ -1,6 +1,6 @@
-# Movie Edge Service
+# Movie Metadata Service
 
-Responsible of handling and persisting movies.
+Provide movie’s external metadata, IMDB ratings, pictures, etc
 
 - [Stack](#stack)
 - [Installation](#installation)
@@ -10,8 +10,6 @@ Responsible of handling and persisting movies.
 
 * Symfony 4.2
 * PHP 7.1
-* MySQL
-* Doctrine
 
 ## Installation
 
@@ -44,7 +42,7 @@ $ bin/phpunit
 Run the application using the following command:
 
 ```batch
-$ php -S localhost:8003 -t public
+$ php -S localhost:8004 -t public
 ```
 
-Finally open your browser using the url: `http://localhost:8003/api`
+Finally open your browser using the url: `http://localhost:8004/api`
